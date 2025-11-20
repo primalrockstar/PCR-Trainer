@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMS ePCR Writing Practice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EMS ePCR Writing Practice</h1>
+            <p class="subtitle">Practice writing professional Patient Care Reports</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('practice')">Practice Mode</button>
+            <button class="tab-btn" onclick="showTab('scenarios')">Practice Scenarios</button>
+            <button class="tab-btn" onclick="showTab('tips')">Documentation Tips</button>
+        </div>
+
+        <!-- Practice Mode Tab -->
+        <div id="practice-tab" class="tab-content active">
+            <form id="pcr-form">
+                <!-- Patient Information -->
+                <section class="form-section">
+                    <h2>Patient Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="patient-name">Patient Name:</label>
+                            <input type="text" id="patient-name" placeholder="Last, First Middle">
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-age">Age:</label>
+                            <input type="number" id="patient-age" min="0" max="150">
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-gender">Gender:</label>
+                            <select id="patient-gender">
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="patient-dob">Date of Birth:</label>
+                            <input type="date" id="patient-dob">
+                        </div>
+                        <div class="form-group">
+                            <label for="patient-weight">Weight (kg):</label>
+                            <input type="number" id="patient-weight" step="0.1">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Incident Information -->
+                <section class="form-section">
+                    <h2>Incident Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="incident-date">Date:</label>
+                            <input type="date" id="incident-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="incident-time">Time of Call:</label>
+                            <input type="time" id="incident-time">
+                        </div>
+                        <div class="form-group">
+                            <label for="incident-location">Location:</label>
+                            <input type="text" id="incident-location" placeholder="Address or description">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Chief Complaint -->
+                <section class="form-section">
+                    <h2>Chief Complaint</h2>
+                    <div class="form-group full-width">
+                        <label for="chief-complaint">Chief Complaint:</label>
+                        <input type="text" id="chief-complaint" placeholder="Patient's primary complaint in their own words">
+                        <small class="hint">Use quotes when documenting patient's exact words</small>
+                    </div>
+                </section>
+
+                <!-- History -->
+                <section class="form-section">
+                    <h2>History of Present Illness (HPI)</h2>
+                    <div class="form-group full-width">
+                        <label for="hpi">HPI (OPQRST):</label>
+                        <textarea id="hpi" rows="4" placeholder="Onset, Provocation, Quality, Radiation, Severity, Time"></textarea>
+                        <small class="hint">Include: Onset, Provocation/Palliation, Quality, Radiation, Severity (1-10), Time/Duration</small>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="medical-history">Past Medical History (SAMPLE):</label>
+                        <textarea id="medical-history" rows="3" placeholder="Signs/Symptoms, Allergies, Medications, Past medical history, Last oral intake, Events leading"></textarea>
+                        <small class="hint">Include: Signs/Symptoms, Allergies, Medications, Past medical history, Last oral intake, Events leading to emergency</small>
+                    </div>
+                </section>
+
+                <!-- Vital Signs -->
+                <section class="form-section">
+                    <h2>Vital Signs</h2>
+                    <div class="vitals-container">
+                        <div class="vitals-set">
+                            <h3>Initial Vitals</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="bp-initial">BP:</label>
+                                    <input type="text" id="bp-initial" placeholder="120/80">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hr-initial">HR:</label>
+                                    <input type="number" id="hr-initial" placeholder="80">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rr-initial">RR:</label>
+                                    <input type="number" id="rr-initial" placeholder="16">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="spo2-initial">SpO2:</label>
+                                    <input type="number" id="spo2-initial" placeholder="98" min="0" max="100">
+                                </div>
+                                <div class="form-group">
+                                    <label for="temp-initial">Temp (°C):</label>
+                                    <input type="number" id="temp-initial" step="0.1" placeholder="37.0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="gcs-initial">GCS:</label>
+                                    <input type="number" id="gcs-initial" placeholder="15" min="3" max="15">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Assessment -->
+                <section class="form-section">
+                    <h2>Assessment</h2>
+                    <div class="form-group full-width">
+                        <label for="physical-exam">Physical Examination:</label>
+                        <textarea id="physical-exam" rows="4" placeholder="Document your head-to-toe assessment findings"></textarea>
+                        <small class="hint">Be systematic: General appearance, Head/Neck, Chest, Abdomen, Extremities, Neurological</small>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="impression">Clinical Impression:</label>
+                        <input type="text" id="impression" placeholder="Your assessment of the patient's condition">
+                    </div>
+                </section>
+
+                <!-- Treatment -->
+                <section class="form-section">
+                    <h2>Treatment & Interventions</h2>
+                    <div class="form-group full-width">
+                        <label for="treatment">Treatment Provided:</label>
+                        <textarea id="treatment" rows="4" placeholder="Document all interventions, medications, and procedures with times"></textarea>
+                        <small class="hint">Include: Time, intervention/medication, dose, route, response</small>
+                    </div>
+                </section>
+
+                <!-- Narrative -->
+                <section class="form-section">
+                    <h2>Narrative</h2>
+                    <div class="form-group full-width">
+                        <label for="narrative">Patient Care Narrative:</label>
+                        <textarea id="narrative" rows="8" placeholder="Write a comprehensive narrative of the call using the CHART format (Chief complaint, History, Assessment, Rx/Treatment, Transport)"></textarea>
+                        <small class="hint">Use CHART format: Chief complaint, History, Assessment, Rx/Treatment, Transport. Be objective, accurate, and complete.</small>
+                    </div>
+                </section>
+
+                <!-- Disposition -->
+                <section class="form-section">
+                    <h2>Disposition</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="transport">Patient Transport:</label>
+                            <select id="transport">
+                                <option value="">Select</option>
+                                <option value="Transported to hospital">Transported to hospital</option>
+                                <option value="Refused transport">Refused transport (RMA)</option>
+                                <option value="Treated and released">Treated and released</option>
+                                <option value="DOA">DOA (Dead on Arrival)</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">Destination:</label>
+                            <input type="text" id="destination" placeholder="Hospital or facility name">
+                        </div>
+                    </div>
+                </section>
+
+                <div class="form-actions">
+                    <button type="button" onclick="saveDraft()" class="btn btn-secondary">Save Draft</button>
+                    <button type="button" onclick="clearForm()" class="btn btn-secondary">Clear Form</button>
+                    <button type="button" onclick="reviewPCR()" class="btn btn-primary">Review PCR</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Scenarios Tab -->
+        <div id="scenarios-tab" class="tab-content">
+            <h2>Practice Scenarios</h2>
+            <p>Click a scenario to load it into the practice form:</p>
+            
+            <div class="scenario-card" onclick="loadScenario('chest-pain')">
+                <h3>Scenario 1: Chest Pain</h3>
+                <p><strong>Dispatch:</strong> 62-year-old male with chest pain</p>
+                <p><strong>Learning Focus:</strong> Cardiac assessment, OPQRST documentation</p>
+            </div>
+
+            <div class="scenario-card" onclick="loadScenario('fall')">
+                <h3>Scenario 2: Fall with Injury</h3>
+                <p><strong>Dispatch:</strong> 78-year-old female fell at home</p>
+                <p><strong>Learning Focus:</strong> Trauma assessment, mechanism of injury</p>
+            </div>
+
+            <div class="scenario-card" onclick="loadScenario('respiratory')">
+                <h3>Scenario 3: Respiratory Distress</h3>
+                <p><strong>Dispatch:</strong> 45-year-old with difficulty breathing</p>
+                <p><strong>Learning Focus:</strong> Respiratory assessment, treatment documentation</p>
+            </div>
+
+            <div class="scenario-card" onclick="loadScenario('diabetic')">
+                <h3>Scenario 4: Diabetic Emergency</h3>
+                <p><strong>Dispatch:</strong> 35-year-old with altered mental status</p>
+                <p><strong>Learning Focus:</strong> Glucose monitoring, medication administration</p>
+            </div>
+        </div>
+
+        <!-- Tips Tab -->
+        <div id="tips-tab" class="tab-content">
+            <h2>ePCR Documentation Tips</h2>
+            
+            <div class="tip-section">
+                <h3>General Principles</h3>
+                <ul>
+                    <li><strong>Be Objective:</strong> Document facts, not opinions. Use "patient states" instead of assumptions.</li>
+                    <li><strong>Be Accurate:</strong> Record exact times, measurements, and observations.</li>
+                    <li><strong>Be Complete:</strong> Document all relevant findings, even if normal.</li>
+                    <li><strong>Be Timely:</strong> Complete the PCR as soon as possible after the call.</li>
+                    <li><strong>Be Professional:</strong> Use proper medical terminology and maintain patient dignity.</li>
+                </ul>
+            </div>
+
+            <div class="tip-section">
+                <h3>Documentation Mnemonics</h3>
+                <ul>
+                    <li><strong>CHART:</strong> Chief complaint, History, Assessment, Rx/Treatment, Transport</li>
+                    <li><strong>OPQRST:</strong> Onset, Provocation, Quality, Radiation, Severity, Time</li>
+                    <li><strong>SAMPLE:</strong> Signs/Symptoms, Allergies, Medications, Past history, Last oral intake, Events</li>
+                    <li><strong>DCAP-BTLS:</strong> Deformities, Contusions, Abrasions, Punctures, Burns, Tenderness, Lacerations, Swelling</li>
+                </ul>
+            </div>
+
+            <div class="tip-section">
+                <h3>Common Mistakes to Avoid</h3>
+                <ul>
+                    <li>Using vague terms like "normal" without specific findings</li>
+                    <li>Forgetting to document patient refusals or non-compliance</li>
+                    <li>Omitting reassessment findings after interventions</li>
+                    <li>Using abbreviations that aren't standard or approved</li>
+                    <li>Failing to document exact times for critical events</li>
+                    <li>Not documenting patient's own words (use quotes)</li>
+                </ul>
+            </div>
+
+            <div class="tip-section">
+                <h3>Legal Considerations</h3>
+                <ul>
+                    <li>If it's not documented, it didn't happen (from legal perspective)</li>
+                    <li>Never alter or destroy a PCR once completed</li>
+                    <li>Document refusal of care with witness signatures when possible</li>
+                    <li>Be honest about errors or adverse events</li>
+                    <li>Maintain patient confidentiality (HIPAA compliance)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
