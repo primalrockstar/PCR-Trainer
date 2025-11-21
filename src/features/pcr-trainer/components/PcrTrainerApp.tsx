@@ -26,6 +26,7 @@ const PcrTrainerContent: React.FC = () => {
   const [showReference, setShowReference] = useState(false);
   const [showHandOff, setShowHandOff] = useState(false);
   const [showAbout, setShowAbout] = useState(true); // Show guide on initial load
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   // Initialize document when scenario changes
   useEffect(() => {
@@ -126,8 +127,21 @@ const PcrTrainerContent: React.FC = () => {
 
   return (
     <div className="flex h-screen w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+      {/* Mobile Menu Overlay */}
+      {showMobileMenu && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm"
+          onClick={() => setShowMobileMenu(false)}
+        />
+      )}
+
       {/* Sidebar - Scenarios & Navigation */}
-      <div className={`w-80 flex-shrink-0 ${glassPanelClass} flex flex-col`}>
+      <div className={`
+        fixed inset-y-0 left-0 z-50 w-80 transform transition-transform duration-300 ease-in-out
+        md:relative md:translate-x-0
+        ${showMobileMenu ? 'translate-x-0' : '-translate-x-full'}
+        ${glassPanelClass} flex flex-col
+      `}>
         <div className="p-6 border-b border-white/10">
           <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400">
             PCR Trainer Pro™
@@ -184,8 +198,16 @@ const PcrTrainerContent: React.FC = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col h-full overflow-hidden relative">
         {/* Top Bar */}
-        <header className="h-16 flex items-center justify-between px-6 border-b border-white/10 bg-white/5 backdrop-blur-sm">
+        <header className="h-16 flex items-center justify-between px-4 md:px-6 border-b border-white/10 bg-white/5 backdrop-blur-sm">
           <div className="flex items-center gap-4">
+            <button 
+              className="md:hidden p-2 -ml-2 text-slate-400 hover:text-white"
+              onClick={() => setShowMobileMenu(true)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
             {currentScenario ? (
               <>
                 <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-medium border border-blue-500/30">
@@ -198,7 +220,7 @@ const PcrTrainerContent: React.FC = () => {
             )}
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3 overflow-x-auto md:overflow-visible pl-2">
             <ExportActions pcrDocument={pcrDocument} />
             
             {activeMode !== 'exam_mimic' && (
@@ -289,7 +311,7 @@ const PcrTrainerContent: React.FC = () => {
 
           {/* Right Panel (Model PCR / Feedback / Reference) */}
           {(showModelPcr || showFeedback || showReference) && (
-            <div className="w-96 border-l border-white/10 bg-slate-900/50 backdrop-blur-xl absolute right-0 top-0 bottom-0 shadow-2xl transform transition-transform duration-300 ease-in-out">
+            <div className="w-full md:w-96 border-l border-white/10 bg-slate-900/95 md:bg-slate-900/50 backdrop-blur-xl absolute right-0 top-0 bottom-0 z-30 shadow-2xl transform transition-transform duration-300 ease-in-out">
               {showFeedback ? (
                 <FeedbackPanel 
                   scores={pcrDocument?.scores} 
